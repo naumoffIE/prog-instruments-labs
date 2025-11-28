@@ -36,7 +36,18 @@ def calculate_statistics(numbers):
 
 
 def main():
+    data = [random.randint(1, 100) for _ in range(1000)]
 
+    start_time = time.time()
+
+    statistics = calculate_statistics(data)
+    processed_data = process_data_inefficient(data)
+
+    end_time = time.time()
+    print(f"Execution time: {end_time - start_time:.7f} seconds")
+    print(f"Processed {len(processed_data)} items")
+    print(f"Statistics keys: {len(statistics)}")
+    print("\n=== Profiling Results ===")
 
 
 if __name__ == "__main__":
