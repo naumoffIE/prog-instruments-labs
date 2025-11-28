@@ -20,8 +20,20 @@ def process_data_efficient(data):
     return result
 
 
+def calculate_statistics_efficient(numbers):
+    """Эффективный расчет статистики"""
+    # Используем Counter для подсчета
+    counter = Counter(numbers)
+    stats = {}
+
+    for number, count in counter.items():
+        stats[f"pair_{number}"] = count * count  # n^2 пар для каждого числа
+
+    return stats
+
 
 def main_optimized():
+
 
 
 if __name__ == "__main__":
