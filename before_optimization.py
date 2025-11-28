@@ -20,6 +20,19 @@ def process_data_inefficient(data):
     return result
 
 
+def calculate_statistics(numbers):
+    """Неэффективный расчет статистики"""
+    stats = {}
+
+    for i in range(len(numbers)):
+        for j in range(len(numbers)):
+            if numbers[i] == numbers[j]:
+                key = f"pair_{numbers[i]}"
+                if key not in stats:
+                    stats[key] = 0
+                stats[key] += 1
+
+    return stats
 
 
 def main():
