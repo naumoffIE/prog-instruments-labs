@@ -33,7 +33,19 @@ def calculate_statistics_efficient(numbers):
 
 
 def main_optimized():
+    # Генерируем тестовые данные
+    data = [random.randint(1, 100) for _ in range(1000)]
 
+    start_time = time.time()
+
+    # Вызываем оптимизированные функции
+    processed_data = process_data_efficient(data)
+    statistics = calculate_statistics_efficient(data)
+
+    end_time = time.time()
+    print(f"Optimized execution time: {end_time - start_time:.7f} seconds")
+    print(f"Processed {len(processed_data)} items")
+    print(f"Statistics keys: {len(statistics)}")
 
 
 if __name__ == "__main__":
