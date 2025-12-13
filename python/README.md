@@ -1,39 +1,21 @@
-# Gilded Rose starting position in Python
+# Лабораторная работа №4: Рефакторинг Gilded Rose
+**Наумов И.Е.** 
+**6311-100503D** 
 
-For exercise instructions see [top level README](../README.md)
+## Цель работы
+Провести рефакторинг легаси-кода системы управления качеством товаров по методикам Фаулера.
 
-Suggestion: create a python virtual environment for this project. See the [documentation](https://docs.python.org/3/library/venv.html)
+## Выполненные действия
+1. Выделение констант (AGED_BRIE, BACKSTAGE_PASS, SULFURAS, MAX_QUALITY, MIN_QUALITY)
+2. Выделение методов по типам товаров:
+   - `_update_normal_item()`
+   - `_update_aged_brie()`
+   - `_update_backstage_pass()`
+3. Выделение базовых операций:
+   - `_increase_quality()`
+   - `_decrease_quality()`
 
-## Run the unit tests from the Command-Line
-
-```
-python -m unittest
-```
-
-## Run the TextTest fixture from the Command-Line
-
-For e.g. 10 days:
-
-```
-python texttest_fixture.py 10
-```
-
-You should make sure the command shown above works when you execute it in a terminal before trying to use TextTest (see below).
-
-
-## Run the TextTest approval test that comes with this project
-
-There are instructions in the [TextTest Readme](../texttests/README.md) for setting up TextTest. You will need to specify the Python executable and interpreter in [config.gr](../texttests/config.gr). Uncomment these lines:
-
-    executable:${TEXTTEST_HOME}/python/texttest_fixture.py
-    interpreter:python
-
-## Run the ApprovalTests.Python test
-
-This test uses the framework [ApprovalTests.Python](https://github.com/approvals/ApprovalTests.Python). You will need to install  Run it like this:
-
-```
-python tests/test_gilded_rose_approvals.py
-```
-
-You will need to approve the output file which appears under "approved_files" by renaming it from xxx.received.txt to xxx.approved.txt.
+## Результат
+Исходный метод `update_quality()` из 50 строк сокращён до 7 строк.
+Код соответствует принципам SOLID (SRP, OCP).
+Все тесты проходят.
