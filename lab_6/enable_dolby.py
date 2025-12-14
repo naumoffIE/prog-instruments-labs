@@ -35,7 +35,7 @@ def enable_dolby_vision_hdmi(hex: str) -> str:
 def main():
     """Main function to handle command-line input."""
     if len(sys.argv) != 2:
-        print("Usage: python -m enable_dolby_vision_hdmi <14-character_hex_code>")
+        print("Usage: python -m enable_dolby <14-character_hex_code>")
         sys.exit(1)
 
     video_hex = sys.argv[1].strip()

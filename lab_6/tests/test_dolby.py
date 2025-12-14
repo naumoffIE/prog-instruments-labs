@@ -2,7 +2,7 @@ import sys
 from unittest.mock import patch
 import pytest as pytest
 
-from enable_dolby_vision_hdmi import enable_dolby_vision_hdmi, hex_to_int, int_to_hex, main
+from lab_6.enable_dolby import enable_dolby_vision_hdmi, hex_to_int, int_to_hex, main
 
 
 @pytest.mark.parametrize("input_hex, expected_hex", [
@@ -50,8 +50,8 @@ def test_enable_dolby_invalid_input():
 
 def test_enable_dolby_mocked_helpers():
     """Тест с моками, проверяем вызовы вспомогательных функций."""
-    with patch('enable_dolby_vision_hdmi.hex_to_int') as mock_hex_to_int, \
-            patch('enable_dolby_vision_hdmi.int_to_hex') as mock_int_to_hex:
+    with patch('lab_6.enable_dolby.hex_to_int') as mock_hex_to_int, \
+            patch('lab_6.enable_dolby.int_to_hex') as mock_int_to_hex:
         mock_hex_to_int.return_value = 0x82
         mock_int_to_hex.return_value = '83'
 
@@ -69,7 +69,7 @@ def test_main_valid_input():
     expected_output = f"Update `video_hex` from '{test_hex}' to '480377825e6d95' to enable LLDV-HDMI"
 
     # мокаем sys.argv и print
-    with patch.object(sys, 'argv', ['enable_dolby_vision_hdmi.py', test_hex]), \
+    with patch.object(sys, 'argv', ['enable_dolby.py', test_hex]), \
             patch('builtins.print') as mock_print:
         main()
         mock_print.assert_called_once_with(expected_output)
@@ -77,7 +77,7 @@ def test_main_valid_input():
 
 def test_main_invalid_input():
     """main() должен вывести ошибку при некорректном вводе."""
-    with patch.object(sys, 'argv', ['enable_dolby_vision_hdmi.py', 'not_hex']), \
+    with patch.object(sys, 'argv', ['enable_dolby.py', 'not_hex']), \
             patch('builtins.print') as mock_print:
         try:
             main()
