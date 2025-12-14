@@ -34,14 +34,16 @@ def enable_dolby_vision_hdmi(hex: str) -> str:
 
 def main():
     """Main function to handle command-line input."""
+    if len(sys.argv) != 2:
+        print("Usage: python -m enable_dolby_vision_hdmi <14-character_hex_code>")
+        sys.exit(1)
+
+    video_hex = sys.argv[1].strip()
     try:
-        video_hex = sys.argv[1]
-    except IndexError:
-        raise ValueError('No value provided for argument `video_hex`')
-
-    video_hex = video_hex.strip()
-
-    new_video_hex = enable_dolby_vision_hdmi(video_hex)
+        new_video_hex = enable_dolby_vision_hdmi(video_hex)
+    except ValueError as e:
+        print(f"Error: {e}")
+        sys.exit(1)
     if new_video_hex == video_hex:
         print(f"Warning: `video_hex` of '{video_hex}' is already enabled with LLDV-HDMI")
     else:
@@ -49,5 +51,4 @@ def main():
 
 
 if __name__ == '__main__':
-    run_tests()
     main()

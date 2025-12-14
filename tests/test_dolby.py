@@ -73,3 +73,15 @@ def test_main_valid_input():
             patch('builtins.print') as mock_print:
         main()
         mock_print.assert_called_once_with(expected_output)
+
+
+def test_main_invalid_input():
+    """main() должен вывести ошибку при некорректном вводе."""
+    with patch.object(sys, 'argv', ['enable_dolby_vision_hdmi.py', 'not_hex']), \
+            patch('builtins.print') as mock_print:
+        try:
+            main()
+        except SystemExit:
+            pass  # Ожидаем выход с кодом ошибки
+        # Проверяем вывод сообщения об ошибке
+        mock_print.assert_any_call("Error: Input must be a 14-character hexadecimal string.")
