@@ -32,3 +32,15 @@ def test_enable_dolby_already_enabled():
     """Код, где последний бит уже установлен (3-й байт 0x77 -> 0x77)."""
     result = enable_dolby_vision_hdmi('480377825e6d95')
     assert result == '480377825e6d95'  # Не должен измениться
+
+
+def test_enable_dolby_min_byte():
+    """Проверка минимального значения байта (0x00 -> 0x01)."""
+    result = enable_dolby_vision_hdmi('480300825e6d95')
+    assert result == '480301825e6d95'
+
+
+def test_enable_dolby_invalid_input():
+    """Некорректная входная строка."""
+    with pytest.raises(ValueError, match="14-character hexadecimal"):
+        enable_dolby_vision_hdmi('short')
