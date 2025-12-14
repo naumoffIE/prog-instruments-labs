@@ -2,7 +2,7 @@ import sys
 from unittest.mock import patch
 import pytest as pytest
 
-from enable_dolby_vision_hdmi import enable_dolby_vision_hdmi, hex_to_int, int_to_hex
+from enable_dolby_vision_hdmi import enable_dolby_vision_hdmi, hex_to_int, int_to_hex, main
 
 
 @pytest.mark.parametrize("input_hex, expected_hex", [
@@ -61,3 +61,15 @@ def test_enable_dolby_mocked_helpers():
         # int_to_hex был вызван 1 раз с аргументом 0x83 (0x82 | 1)
         mock_int_to_hex.assert_called_once_with(0x83)
         assert result == '480383825e6d95'
+
+
+def test_main_valid_input():
+    """Тестируем работу main() через командную строку."""
+    test_hex = '480376825e6d95'
+    expected_output = f"Update `video_hex` from '{test_hex}' to '480377825e6d95' to enable LLDV-HDMI"
+
+    # мокаем sys.argv и print
+    with patch.object(sys, 'argv', ['enable_dolby_vision_hdmi.py', test_hex]), \
+            patch('builtins.print') as mock_print:
+        main()
+        mock_print.assert_called_once_with(expected_output)
