@@ -1,4 +1,4 @@
-from enable_dolby_vision_hdmi import enable_dolby_vision_hdmi
+from enable_dolby_vision_hdmi import enable_dolby_vision_hdmi, hex_to_int, int_to_hex
 
 
 def run_tests():
@@ -16,3 +16,13 @@ def run_tests():
             f"Test failed: {hex_input} -> {hex_output} (expected {expected_hex_output})"
         )
     print("All tests passed.")
+
+    def test_hex_to_int():
+        assert hex_to_int('0a') == 10
+        assert hex_to_int('ff') == 255
+        assert hex_to_int('A1') == 161
+
+    def test_int_to_hex():
+        assert int_to_hex(10) == '0a'
+        assert int_to_hex(255) == 'ff'
+        assert int_to_hex(0) == '00'
