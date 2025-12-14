@@ -1,3 +1,5 @@
+import sys
+from unittest.mock import patch
 import pytest as pytest
 
 from enable_dolby_vision_hdmi import enable_dolby_vision_hdmi, hex_to_int, int_to_hex
@@ -44,3 +46,18 @@ def test_enable_dolby_invalid_input():
     """Некорректная входная строка."""
     with pytest.raises(ValueError, match="14-character hexadecimal"):
         enable_dolby_vision_hdmi('short')
+
+
+def test_enable_dolby_mocked_helpers():
+    """Тест с моками, проверяем вызовы вспомогательных функций."""
+    with patch('enable_dolby_vision_hdmi.hex_to_int') as mock_hex_to_int, \
+            patch('enable_dolby_vision_hdmi.int_to_hex') as mock_int_to_hex:
+        mock_hex_to_int.return_value = 0x82
+        mock_int_to_hex.return_value = '83'
+
+        result = enable_dolby_vision_hdmi('480382825e6d95')
+        # hex_to_int был вызван 1 раз с аргументом '82' (3-й байт)
+        mock_hex_to_int.assert_called_once_with('82')
+        # int_to_hex был вызван 1 раз с аргументом 0x83 (0x82 | 1)
+        mock_int_to_hex.assert_called_once_with(0x83)
+        assert result == '480383825e6d95'
