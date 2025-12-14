@@ -26,3 +26,9 @@ def test_int_to_hex():
     assert int_to_hex(10) == '0a'
     assert int_to_hex(255) == 'ff'
     assert int_to_hex(0) == '00'
+
+
+def test_enable_dolby_already_enabled():
+    """Код, где последний бит уже установлен (3-й байт 0x77 -> 0x77)."""
+    result = enable_dolby_vision_hdmi('480377825e6d95')
+    assert result == '480377825e6d95'  # Не должен измениться
